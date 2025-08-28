@@ -1,0 +1,4 @@
+Playstation 4,2499.99,COMPUTERS
+Keyboard,100.00,ELETRONICS
+Hammer,30.50,TOOLS
+Car,40.50,TOYS
