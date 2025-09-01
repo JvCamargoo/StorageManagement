@@ -42,7 +42,7 @@ namespace StorageManagement.Services
                     Console.Clear();
                 }
             }
-                UniteData();
+            UniteData();
         }
 
         public List<Products> returnList()
@@ -133,6 +133,20 @@ namespace StorageManagement.Services
             {
                 Console.WriteLine("This id doesn't exist.");
             }
+        }
+
+        public void RemoveProduct(int id)
+        {
+            VerificationService service = new VerificationService();
+            var modProduct = _products.Find(x => x.Id == id);
+            if (modProduct == null)
+                throw new ArgumentNullException("This id doesnt exist");
+
+            Console.WriteLine("---Product Data---");
+            Console.WriteLine(modProduct);
+            _products.Remove(modProduct);
+            service.RemoveData(id);
+            Console.WriteLine("---Product Removed---");
         }
     }
 }

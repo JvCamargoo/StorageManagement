@@ -2,6 +2,7 @@
 using StorageManagement.Entities.Enums;
 using StorageManagement.Services;
 using System.Linq.Expressions;
+using System.Runtime;
 
 internal class Program
 {
@@ -27,7 +28,7 @@ internal class Program
             else
             {
                 int option = 0;
-                while(option != 7)
+                while(option != 8)
                 {
                     Console.WriteLine("----Product Options----");
                     Console.WriteLine("/1/ -- Show products");
@@ -36,7 +37,8 @@ internal class Program
                     Console.WriteLine("/4/ -- Average price");
                     Console.WriteLine("/5/ -- Clear");
                     Console.WriteLine("/6/ -- Sort products");
-                    Console.WriteLine("/7/ -- Exit");
+                    Console.WriteLine("/7/ -- Remove product");
+                    Console.WriteLine("/8/ -- Exit");
                     option = int.Parse(Console.ReadLine());
                     switch (option)
                     {
@@ -44,10 +46,10 @@ internal class Program
                             productManager.UniteData();
                             List<Products> products2 = productManager.returnList();
                             var groups = products2.GroupBy(p => p.Category);
-                            foreach(IGrouping<Category,Products> grop in groups)
+                            foreach (IGrouping<Category, Products> grop in groups)
                             {
                                 Console.WriteLine("----CATEGORY " + grop.Key + "----");
-                                foreach(Products product in grop)
+                                foreach (Products product in grop)
                                 {
                                     Console.WriteLine(product);
                                 }
@@ -82,7 +84,13 @@ internal class Program
                             Console.WriteLine();
                             Console.WriteLine("--PRODUCTS SORTED--");
                             Console.WriteLine();
-
+                            break;
+                        case 7:
+                            productManager.UniteData();
+                            Console.WriteLine();
+                            Console.Write("Type product ID:");
+                            int id1 = int.Parse(Console.ReadLine());
+                            productManager.RemoveProduct(id1);
                             break;
                     }
                 }

@@ -22,21 +22,38 @@ namespace StorageManagement.Services
             }
         }
 
+        public void RemoveData(int id)
+        {
+            string path = GetPath();
+            var lines = File.ReadAllLines(path).ToList();
+            for (int i = 0; i < lines.Count; i++)
+            {
+                string[] fields = lines[i].Split(",");
+                int _id = int.Parse(fields[3]);
+                if (id == _id)
+                {
+                    lines.RemoveAt(i);
+                    break;
+                }
+            }
+            File.WriteAllLines(path, lines);
+        }
+
         public void ChangeData(Products product)
         {
             string path = GetPath();
-            var lines = File.ReadAllLines(path).ToList(); 
+            var lines = File.ReadAllLines(path).ToList();
             for (int i = 0; i < lines.Count; i++)
             {
                 string[] fields = lines[i].Split(",");
                 int id = int.Parse(fields[3]);
                 if (product.Id == id)
                 {
-                    lines[i] = product.ToString(); 
+                    lines[i] = product.ToString();
                     break;
                 }
             }
-            File.WriteAllLines(path, lines); 
+            File.WriteAllLines(path, lines);
         }
 
         public void WriteInData(List<Products> list)
